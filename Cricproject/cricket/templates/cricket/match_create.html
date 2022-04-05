@@ -1,0 +1,32 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+
+{% block title %}MatchCreate{% endblock title %}
+
+{% block css %}<link rel="stylesheet" href="{% static 'cricket/css/style1.css' %}">{% endblock css %}
+
+{% block content %}
+        <div class="row">
+            {% if request.user.is_superuser %}
+                <div class="col-sm-4 offset-3 mt-4">
+                    <h2 class="text-center">Match Create Form For Admin</h2>
+                    <br>
+                    {% if messages %}
+                        {% for message in messages %}
+                            <span {% if message.tag %} class="{{message.tag}}" {% endif %}>{{message}}</span>
+                        {% endfor %}
+                    {% endif %}
+                    {{form.non_field_errors}}
+                    <form action="" method="post" novalidate>
+                        {% csrf_token %}
+                        {% for fm in form %}
+                            {{fm.label_tag}}
+                            {{fm}}
+                            <small class="errorlist">{{fm.errors|striptags}}</small><br><br>
+                        {% endfor %}
+                        <input type="submit" value="Create" class="btn btn-primary">
+                    </form>
+                </div>
+            {% endif %}
+        </div>
+{% endblock content %}

@@ -1,0 +1,167 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+
+{% block title %}Matches{% endblock title %}
+
+{% block css %}<link rel="stylesheet" href="{% static 'cricket/css/style1.css' %}">{% endblock css %}
+
+{% block content %}
+            {% if current_match == null %}
+                <h5 class="text-center mt-2">Please make sure to logout and release the session....</h5>
+            {% endif %}
+            <br>
+            <div class="row">
+                <div class="col-sm-3 offset-4">
+                    <b><p>{{current_match.match_number}}</p></b>
+                    <br>
+                    {% if form %}
+                        <form action="" method="post" novalidate>
+                            {% for error in form.non_field_errors %}
+                                <span class="errorlist">{{error|striptags}}</span><br><br>
+                            {% endfor %}
+
+                            {% csrf_token %}
+                            {% for fm in form.hidden_fields %}
+                                {{fm}}
+                            {% endfor %}
+
+                            {% comment %} {% for fm in form.visible_fields %}
+                                {{fm.label_tag}}
+                                {{fm}}
+                                <span class="errorlist">{{fm.errors|striptags}}</span><br>
+                            {% endfor %} {% endcomment %}
+                            
+                            {{form.team1.label_tag}}{{form.team1}} VS {{form.team2.label_tag}}{{form.team2}}
+                            <br><br>
+                            <input type="submit" value="Play Match" class="btn btn-primary btn-sm">
+                        </form>
+                    {% else %}
+                        {% if next_match_id %}
+                            {% if next_match_id < 29 %}
+                                <a href="{% url 'matchupdate' next_match_id %}"  class="btn btn-secondary btn-sm">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-square-fill" viewBox="0 0 16 16">
+                                    <path d="M0 14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2v12zm4.5-6.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5a.5.5 0 0 1 0-1z"></path>
+                                    </svg>
+                                    Next Match
+                                </a>
+                            {% elif next_match_id > 28 %}
+                                <h5>Tournament Finished</h5>
+                            {% endif %}
+                        {% endif %}
+                    {% endif %}
+                </div>
+                <div class="col-sm-3 mt-4">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <span {% if message.tag %} class="{{message.tag}}" {% endif %}><strong>{{message}}</strong></span>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+
+            {% if fixtures %}
+                <div class="row">
+                    <h5>Tournament Fixtures</h5>
+                    <div class="col-sm-2 mt-2">
+                        <table class="table table-dark table-hover">
+                            <thead>
+                                <tr>
+                                <th scope="col">Matches</th>
+                                <th scope="col">Team1</th>
+                                <th scope="col">Team2</th>
+                                <th scope="col">Winner</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <h5 class="text-center">Table 1</h5>
+                                {% for fixture in fixtures %}
+                                    {% if fixture.id < 9 %}
+                                        <tr>
+                                            <th scope="row">{{fixture.match_number}}</th>
+                                            <td>{{fixture.team1}}</td>
+                                            <td>{{fixture.team2}}</td>
+                                            <td>{{fixture.winner}}</td>
+                                        </tr>
+                                    {% endif %}
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-sm-2 offset-1 mt-2">
+                        <table class="table table-dark table-hover">
+                            <thead>
+                                <tr>
+                                <th scope="col">Matches</th>
+                                <th scope="col">Team1</th>
+                                <th scope="col">Team2</th>
+                                <th scope="col">Winner</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <h5 class="text-center">Table 2</h5>
+                                {% for fixture in fixtures %}
+                                    {% if fixture.id > 8 and fixture.id < 17 %}
+                                        <tr>
+                                            <th scope="row">{{fixture.match_number}}</th>
+                                            <td>{{fixture.team1}}</td>
+                                            <td>{{fixture.team2}}</td>
+                                            <td>{{fixture.winner}}</td>
+                                        </tr>
+                                    {% endif %}
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-sm-2 offset-1 mt-2">
+                        <table class="table table-dark table-hover">
+                            <thead>
+                                <tr>
+                                <th scope="col">Matches</th>
+                                <th scope="col">Team1</th>
+                                <th scope="col">Team2</th>
+                                <th scope="col">Winner</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <h5 class="text-center">Table 3</h5>
+                                {% for fixture in fixtures %}
+                                    {% if fixture.id > 16 and fixture.id < 25 %}
+                                        <tr>
+                                            <th scope="row">{{fixture.match_number}}</th>
+                                            <td>{{fixture.team1}}</td>
+                                            <td>{{fixture.team2}}</td>
+                                            <td>{{fixture.winner}}</td>
+                                        </tr>
+                                    {% endif %}
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-sm-2 offset-1 mt-2">
+                        <table class="table table-dark table-hover">
+                            <thead>
+                                <tr>
+                                <th scope="col">Matches</th>
+                                <th scope="col">Team1</th>
+                                <th scope="col">Team2</th>
+                                <th scope="col">Winner</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <h5 class="text-center">Table 4</h5>
+                                {% for fixture in fixtures %}
+                                    {% if fixture.id > 24 and fixture.id < 29 %}
+                                        <tr>
+                                            <th scope="row">{{fixture.match_number}}</th>
+                                            <td>{{fixture.team1}}</td>
+                                            <td>{{fixture.team2}}</td>
+                                            <td>{{fixture.winner}}</td>
+                                        </tr>
+                                    {% endif %}
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            {% endif %}
+{% endblock content %}

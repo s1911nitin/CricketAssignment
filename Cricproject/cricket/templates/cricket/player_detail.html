@@ -1,0 +1,64 @@
+{% extends "dashboard/base.html" %}
+{% load static %}
+
+{% block title %} PlayerDetail {% endblock title %}
+
+{% block css %}<link rel="stylesheet" href="{% static 'cricket/css/style1.css' %}">{% endblock css %}
+
+{% block content %}
+<h4 class="text-center alert alert-dark" role="alert">Player Detail Information ({{player.team.team_name}})</h4>
+<br>
+<a href="{% url 'teamplayers' player.team.id %}" class='text-center btn btn-secondary btn-sm'>Back to current team</a>
+<a href="{% url 'allplayer' %}" class='text-center btn btn-secondary btn-sm'>Back to all players</a>
+<br><br>
+<div class="row">
+    <div class="col-sm-4 offset-1">
+        <img src="{{player.player_image.url}}" alt="" srcset="">
+        <h5>Name : {{player.full_name}}</h5>
+        <h5>Jersey Number : {{player.player_jersey_number}}</h5>
+        <h5>Role : {{player.player_role}}</h5>
+        <h5>Country : {{player.player_country}}</h5>
+        <br>
+        <table class="table table-dark">
+          <thead>
+            <tr>
+              <th scope="col">Matches</th>
+              <th scope="col">Runs</th>
+              <th scope="col">Fifties</th>
+              <th scope="col">Hundreds</th>
+              <th scope="col">Highest Score</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">{{player.history.matches}}</th>
+              <td>{{player.history.runs}}</td>
+              <td>{{player.history.fifties}}</td>
+              <td>{{player.history.hundreds}}</td>
+              <td>{{player.history.highest_score}}</td>
+            </tr>
+          </tbody>
+        </table>
+    </div>
+
+    <div class="col-sm-6 offset-1">
+      {% if player.team.id == 1 %}
+        <img src="{% static 'cricket/images/CSK_Cover.jpg' %}" class="imagesize" alt="">
+      {% elif player.team.id == 2 %}
+        <img src="{% static 'cricket/images/Mumbai_indians.jpg' %}" class="imagesize" alt="">
+      {% elif player.team.id == 3 %}
+        <img src="{% static 'cricket/images/Rajasthan_royals.jpg' %}" class="imagesize" alt="">
+      {% elif player.team.id == 4 %}
+        <img src="{% static 'cricket/images/Sunrisers_hyderabad.jpg' %}" class="imagesize" alt="">
+      {% elif player.team.id == 5 %}
+        <img src="{% static 'cricket/images/Knight_riders.jpg' %}" class="imagesize" alt="">
+      {% elif player.team.id == 6 %}
+        <img src="{% static 'cricket/images/Delhi_capitals.jpg' %}" class="imagesize" alt="">
+      {% elif player.team.id == 7 %}
+        <img src="{% static 'cricket/images/Royal_challengers.jpg' %}" class="imagesize" alt="">
+      {% else %}
+        <img src="{% static 'cricket/images/Kings_XI.jpg' %}" class="imagesize" alt="">
+      {% endif %}
+    </div>
+</div>
+{% endblock content %}

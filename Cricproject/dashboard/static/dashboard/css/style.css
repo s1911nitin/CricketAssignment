@@ -1,0 +1,19 @@
+
+.errorlist{
+    color: red;
+}
+
+
+.success{
+    color: green;
+}
+
+.colour{
+    background-color: lavender;
+}
+
+
+.imagesize{
+        width: 80%;
+        height: 25vw;
+}

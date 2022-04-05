@@ -1,0 +1,30 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+
+{% block title %}PlayerImages{% endblock title %}
+
+{% block css %}<link rel="stylesheet" href="{% static 'cricket/css/style1.css' %}">{% endblock css %}
+
+{% block content %}
+        <div class="row">
+            <div class="col-sm-4 offset-3 mt-4">
+                <h2 class="text-center">Player Creation Form For Admin</h2>
+                <br>
+                {% if messages %}
+                    {% for message in messages %}
+                        <span {% if message.tag %} class="{{message.tag}}" {% endif %}>{{message}}</span>
+                    {% endfor %}
+                {% endif %}
+                {{form.non_field_errors}}
+                <form action="" method="post" novalidate  enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% for fm in form %}
+                        {{fm.label_tag}}
+                        {{fm}}
+                        <small class="errorlist">{{fm.errors|striptags}}</small><br>
+                    {% endfor %}
+                    <input type="submit" value="Submit" class="btn btn-primary">
+                </form>
+            </div>
+        </div>
+{% endblock content %}

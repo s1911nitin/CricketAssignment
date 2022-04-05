@@ -1,0 +1,34 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+
+{% block title %}PlayersViews{% endblock title %}
+
+{% block css %}<link rel="stylesheet" href="{% static 'cricket/css/style1.css' %}">{% endblock css %}
+
+{% block content %}
+    <h5 class="text-center mt-2 mb-2">{{team.team_name}} Players</h5>
+    <br>
+    <h5>Select any player by clicking on image to get the player's details....</h5>
+    <br>
+    <div class="card-group">
+        {% for player in players %}
+            <div class="card">
+                <a href="{% url 'playerdetail' player.id %}"><img class="card-img-top" src="{{player.player_image.url}}" alt="Card image cap"></a>
+                <div class="card-body">
+                <p class="card-text"><small class="text-muted"><b>{{player.player_first_name}}-{{player.player_role}}</b></small></p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+          <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+        </ol>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img class="d-block w-100" src="{% static 'cricket/images/Lord_Pavilion.jpg' %}" alt="First slide">
+          </div>
+        </div>
+    </div>
+{% endblock content %}

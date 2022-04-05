@@ -1,0 +1,29 @@
+
+.errorlist{
+    color: red;
+}
+
+.success{
+    color: green;
+}
+
+.colour{
+    background-color: lavender;
+}
+
+.card-img-top {
+    width: 100%;
+    height: 15vw;
+    object-fit: cover;
+}
+
+.imagesize{
+    width: 80%;
+    height: 25vw;
+}
+
+.team-img-top{
+    width: 50%;
+    height: 2vw;
+    object-fit: cover;
+}

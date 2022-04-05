@@ -1,0 +1,41 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="{% url 'home' %}">Cricket Assignment</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      {% if request.user.is_authenticated %}
+        <li class="nav-item active">
+            <a class="nav-link" href="{% url 'team' %}">Teams</a>
+        </li>
+        <li class="nav-item active">
+            <a class="nav-link" href="{% url 'allplayer' %}">ALL Players</a>
+        </li>
+        <li class="nav-item active">
+            {% if not request.session.next_match_id %}
+              <a class="nav-link" href="{% url 'matchupdate' 1 %}">Matches</a>
+            {% else %}
+              <a class="nav-link" href="{% url 'matchupdate' request.session.next_match_id %}">Matches</a>
+            {% endif %}
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="{% url 'pointtable' %}">Points</a>
+        </li>
+      {% endif %}
+    </ul>
+  </div>
+
+  {% if request.user.is_authenticated %}
+    <li>
+      <a href="{% url 'profile' %}" class="btn btn-outline-warning">Profile</a>
+    </li>
+    <li>
+      <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+    </li>
+  {% else %}
+    <li>
+      <a href="{% url 'signup' %}" class="btn btn-success">Signup</a>
+    </li>
+  {% endif %}
+</nav>

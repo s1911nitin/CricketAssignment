@@ -1,0 +1,10 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+
+{% block title %}Logout{% endblock title %}
+
+{% block content %}
+    <h5 class="text-center">You are successfully logged Out !!</h5>
+    <br>
+    <h5 class="text-center">Please login : <a href="{% url 'login' %}" class="btn btn-primary btn-sm">Login</a></h5>
+{% endblock content %}

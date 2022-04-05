@@ -1,0 +1,30 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+
+{% block title %}Profile{% endblock title %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-sm-4 offset-3 mt-4">
+            <b><p class="text-center">Welcoming you into the profile: {{request.user.username}}</p></b>
+            <br>
+            {% if messages %}
+                {% for message in messages %}
+                    <span {% if message.tag %} class="{{message.tag}}" {% endif %}>{{message}}</span>
+                {% endfor %}
+            {% endif %}
+
+            <form action="" method="post" novalidate>
+                {% csrf_token %}
+                {% for fm in form %}
+                    {{fm.label_tag}}
+                    {{fm}}
+                    <small class="errorlist">{{fm.errors|striptags}}</small><br>
+                {% endfor %}
+                <br>
+                <input type="submit" value="Update" class="btn btn-success btn-sm">
+                <a href="{% url 'changepassword' %}" class="btn btn-success btn-sm">Change Password</a>
+            </form>
+        </div>
+    </div>
+{% endblock content %}

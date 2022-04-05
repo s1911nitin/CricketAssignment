@@ -1,0 +1,35 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+
+{% block title %}Signup{% endblock title %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-sm-4 offset-1 mt-4">
+            <h2 class="text-center">SignupForm</h2>
+            <br>
+            {% if messages %}
+                {% for message in messages %}
+                    <span {% if message.tag %} class="{{message.tag}}" {% endif %}>{{message}}</span>
+                {% endfor %}
+            {% endif %}
+            {{form.non_field_errors}}
+            <form action="" method="post" novalidate>
+                {% csrf_token %}
+                {% for fm in form %}
+                    {{fm.label_tag}}
+                    {{fm}}
+                    <small class="errorlist">{{fm.errors|striptags}}</small><br>
+                {% endfor %}
+                <input type="submit" value="Signup" class="btn btn-success btn-sm">
+                <a href="{% url 'login' %}" class="btn btn-primary btn-sm">Login</a>
+            </form>
+        </div>
+
+        <div class="col-sm-6 offset-1 mt-5">
+            <img src="{% static 'dashboard/images/Cover_cricket_image.jpg' %}" class="imagesize" alt="">
+        </div>
+    </div>
+
+
+{% endblock content %}

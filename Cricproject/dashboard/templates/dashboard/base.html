@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CrickAssignment | {% block title %}{% endblock title %}</title>
+
+    <link rel="stylesheet" href="{% static 'dashboard/css/bootstrap.css' %}">
+    {% block css %}<link rel="stylesheet" href="{% static 'dashboard/css/style.css' %}">{% endblock css %}
+
+</head>
+<body class="colour">
+    {% include 'dashboard/navbar.html' %}
+    {% block content %}{% endblock content %}
+
+    <script src="{% static 'dashboard/js/jquery.js' %}"></script>
+    <script src="{% static 'dashboard/js/popper.js' %}"></script>
+    <script src="{% static 'dashboard/js/bootstrap.js' %}"></script>
+</body>
+</html>

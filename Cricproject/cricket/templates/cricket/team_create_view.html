@@ -1,0 +1,58 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+
+{% block title %}TeamImages{% endblock title %}
+
+{% block css %}<link rel="stylesheet" href="{% static 'cricket/css/style1.css' %}">{% endblock css %}
+
+{% block content %}
+    {% if request.user.is_superuser %}
+        <div class="row">
+            <div class="col-sm-4 offset-3 mt-4">
+                <h2 class="text-center">Team Creation Form For Admin</h2>
+                <br>
+                {% if messages %}
+                    {% for message in messages %}
+                        <span {% if message.tag %} class="{{message.tag}}" {% endif %}>{{message}}</span>
+                    {% endfor %}
+                {% endif %}
+                {{form.non_field_errors}}
+                <form action="" method="post" novalidate enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% for fm in form %}
+                        {{fm.label_tag}}
+                        {{fm}}
+                        <small class="errorlist">{{fm.errors|striptags}}</small><br>
+                    {% endfor %}
+                    <input type="submit" value="Submit" class="btn btn-primary">
+                </form>
+            </div>
+    </div>
+    {% else %}
+        <h5 class="text-center mt-4">Our Cricket Teams</h5>
+        <br>
+        <h5>Select any team by clicking on image to get the team's players list....</h5>
+    {% endif %}
+    <br><br>
+    <div class="card-group">
+        {% for team in teams %}
+            <div class="card">
+                <a href="{% url 'teamplayers' team.id %}"><img class="card-img-top" src="{{team.team_logo.url}}" alt="Card image cap"></a>
+                <div class="card-body">
+                <p class="card-text"><small class="text-muted"><b>{{team.team_state}}</b></small></p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+          <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+        </ol>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img class="d-block w-100" src="{% static 'cricket/images/Cover_cricket_image.jpg' %}" alt="First slide">
+          </div>
+        </div>
+    </div>
+{% endblock content %}
